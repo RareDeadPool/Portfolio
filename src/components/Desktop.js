@@ -28,6 +28,8 @@ import EducationPage from './EducationPage';
 import ExperiencePage from './ExperiencePage';
 import SkillsPage from './SkillsPage';
 import AchievementsPage from './AchievementsPage';
+import MobileOS from './MobileOS';
+
 
 // Custom inline SVG for Github icon since brand icons are deprecated/removed from lucide-react
 function Github({ className }) {
@@ -176,7 +178,21 @@ const PREVIEW_DATA = {
 
 export default function Desktop() {
   const [windows, setWindows] = useState(new Map());
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const [topZIndex, setTopZIndex] = useState(100);
+
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [activeTheme, setActiveTheme] = useState('1'); // '1', '2', '3', 'dark'
   const theme = 'dark';
@@ -635,6 +651,21 @@ export default function Desktop() {
     glowClasses = 'bg-gradient-to-br from-emerald-500/25 via-cyan-500/10 to-transparent';
   } else if (activeTheme === 'dark') {
     glowClasses = 'opacity-0';
+  }
+
+  if (!mounted) {
+    return <div className="min-h-screen w-full bg-[#0d0d10]" />;
+  }
+
+  if (isMobile) {
+    return (
+      <MobileOS 
+        downloadResumePDF={downloadResumePDF}
+        handleContactSubmit={handleContactSubmit}
+        contactSuccess={contactSuccess}
+        setContactSuccess={setContactSuccess}
+      />
+    );
   }
 
   return (
