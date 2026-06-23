@@ -1,0 +1,328 @@
+@import "tailwindcss";
+
+:root {
+  --background: #131315;
+  --foreground: #e4e2e4;
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(15, 15, 16, 0.7);
+  --glass-bg-active: rgba(23, 23, 26, 0.85);
+  
+  --project-cityscan: #2dd4bf;
+  --project-dataviz: #a855f7;
+  --project-baatcheet: #22d3ee;
+  --project-shivner: #fb923c;
+  
+  --theme-accent: #aac7ff;
+  --dot-color: rgba(255, 255, 255, 0.05);
+  
+  --widget-title: #71717a; /* zinc-500 */
+  --widget-text: #d4d4d8; /* zinc-300 */
+  --widget-header: #f4f4f5; /* zinc-100 */
+  
+  --header-bg: rgba(19, 19, 21, 0.4);
+  --header-border: rgba(255, 255, 255, 0.05);
+
+  --bubble-1-color: rgba(147, 51, 234, 0.15); /* purple-600/15 */
+  --bubble-2-color: rgba(6, 182, 212, 0.08);  /* cyan-500/8 */
+
+  --card-bg: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.05);
+}
+
+.light-theme, .light, html.light {
+  --background: #f4f4f7;
+  --foreground: #1c1c1e;
+  --glass-border: rgba(0, 0, 0, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-active: rgba(255, 255, 255, 0.75);
+  
+  --project-cityscan: #0d9488;
+  --project-dataviz: #7e22ce;
+  --project-baatcheet: #0891b2;
+  --project-shivner: #ea580c;
+  
+  --theme-accent: #4f46e5;
+  --dot-color: rgba(0, 0, 0, 0.08);
+  
+  --widget-title: #71717a; /* zinc-500 */
+  --widget-text: #27272a; /* zinc-800 */
+  --widget-header: #18181b; /* zinc-900 */
+  
+  --header-bg: rgba(244, 244, 247, 0.4);
+  --header-border: rgba(0, 0, 0, 0.08);
+
+  --bubble-1-color: rgba(147, 51, 234, 0.06);
+  --bubble-2-color: rgba(14, 165, 233, 0.04);
+
+  --card-bg: rgba(0, 0, 0, 0.03);
+  --card-border: rgba(0, 0, 0, 0.06);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), sans-serif;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+  position: relative;
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Subtle Realistic Noise Grain Overlay */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.02;
+  pointer-events: none;
+  z-index: 5;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Center Purple Radial Glow */
+.center-purple-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70vw;
+  height: 70vh;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, transparent 60%);
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+/* Realistic Sticky Note Tape effect (deprecated but kept for compatibility) */
+.sticky-note-tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1.5deg);
+  width: 80px;
+  height: 24px;
+  background: rgba(254, 240, 138, 0.45);
+  backdrop-filter: blur(1px);
+  border: 1px dashed rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Realistic Thumb-pin styles */
+.thumb-pin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #facc15 35%, #ca8a04 80%);
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+  z-index: 10;
+}
+.thumb-pin::after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 6px;
+  width: 2px;
+  height: 6px;
+  background: #a1a1aa;
+  transform: rotate(15deg);
+  box-sizing: border-box;
+}
+
+/* Fine Grid Dot Pattern */
+.desktop-dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+  background-size: 24px 24px;
+  z-index: 1;
+  pointer-events: none;
+  transition: background-image 0.5s ease;
+}
+
+/* Organic mountain silhouettes style at the bottom */
+.mountain-backdrop {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 250px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.12;
+}
+
+/* Glowing background effects */
+/* Animations handled dynamically via GSAP translations on bubble references */
+
+/* Folder Theme Colors */
+.folder-yellow-back { background-color: rgba(217, 119, 6, 0.85) !important; border-color: rgba(245, 158, 11, 0.3) !important; }
+.folder-yellow-front { background: linear-gradient(180deg, rgba(251, 191, 36, 0.85) 0%, rgba(245, 158, 11, 0.95) 100%) !important; border-color: rgba(253, 224, 71, 0.3) !important; color: #451a03 !important; }
+
+.folder-blue-back { background-color: rgba(37, 99, 235, 0.85) !important; border-color: rgba(59, 130, 246, 0.3) !important; }
+.folder-blue-front { background: linear-gradient(180deg, rgba(96, 165, 250, 0.85) 0%, rgba(59, 130, 246, 0.95) 100%) !important; border-color: rgba(147, 197, 253, 0.3) !important; color: #f8fafc !important; }
+
+.folder-purple-back { background-color: rgba(124, 58, 237, 0.85) !important; border-color: rgba(168, 85, 247, 0.3) !important; }
+.folder-purple-front { background: linear-gradient(180deg, rgba(192, 132, 252, 0.85) 0%, rgba(168, 85, 247, 0.95) 100%) !important; border-color: rgba(216, 180, 254, 0.3) !important; color: #f8fafc !important; }
+
+.folder-green-back { background-color: rgba(5, 150, 105, 0.85) !important; border-color: rgba(16, 185, 129, 0.3) !important; }
+.folder-green-front { background: linear-gradient(180deg, rgba(52, 211, 153, 0.85) 0%, rgba(16, 185, 129, 0.95) 100%) !important; border-color: rgba(110, 231, 183, 0.3) !important; color: #022c22 !important; }
+
+.folder-pink-back { background-color: rgba(219, 39, 119, 0.85) !important; border-color: rgba(236, 72, 153, 0.3) !important; }
+.folder-pink-front { background: linear-gradient(180deg, rgba(244, 114, 182, 0.85) 0%, rgba(236, 72, 153, 0.95) 100%) !important; border-color: rgba(249, 168, 212, 0.3) !important; color: #f8fafc !important; }
+
+.folder-teal-back { background-color: rgba(13, 148, 136, 0.85) !important; border-color: rgba(20, 184, 166, 0.3) !important; }
+.folder-teal-front { background: linear-gradient(180deg, rgba(45, 212, 191, 0.85) 0%, rgba(20, 184, 166, 0.95) 100%) !important; border-color: rgba(94, 234, 212, 0.3) !important; color: #042f2e !important; }
+
+.folder-orange-back { background-color: rgba(234, 88, 12, 0.85) !important; border-color: rgba(249, 115, 22, 0.3) !important; }
+.folder-orange-front { background: linear-gradient(180deg, rgba(251, 146, 60, 0.85) 0%, rgba(249, 115, 22, 0.95) 100%) !important; border-color: rgba(253, 186, 116, 0.3) !important; color: #431407 !important; }
+
+.folder-dark-back { background-color: rgba(63, 63, 70, 0.85) !important; border-color: rgba(255, 255, 255, 0.15) !important; }
+.folder-dark-front { background: linear-gradient(180deg, rgba(82, 82, 91, 0.85) 0%, rgba(63, 63, 70, 0.95) 100%) !important; border-color: rgba(255, 255, 255, 0.1) !important; color: rgba(255, 255, 255, 0.7) !important; }
+
+/* Glassmorphism styling helpers */
+.glassmorphism {
+  background: var(--glass-bg);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid var(--glass-border);
+  transition: background 0.5s ease, border-color 0.5s ease;
+}
+
+.glassmorphism-active {
+  background: var(--glass-bg-active);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 24px 60px -12px rgba(10, 10, 12, 0.8);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Blinking terminal retro scanline keyframes */
+@keyframes consoleLineFade {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.terminal-log-row {
+  animation: consoleLineFade 0.2s ease-out;
+}
+
+.terminal-scanlines {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  ), linear-gradient(
+    90deg,
+    rgba(255, 0, 0, 0.06),
+    rgba(0, 255, 0, 0.02),
+    rgba(0, 0, 255, 0.06)
+  );
+  background-size: 100% 4px, 6px 100%;
+  z-index: 20;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* CSS folder clip paths or layers styling */
+.folder-tabs-shape {
+  border-top-left-radius: 6px;
+  border-top-right-radius: 12px;
+}
+
+/* Pulse animation keyframe */
+@keyframes pulseScale {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+
+.animate-pulse-scale::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background-color: inherit;
+  animation: pulseScale 2s infinite ease-out;
+  transform-origin: center;
+}
+
+/* Custom Clock Dial Loader */
+.loader {
+  position: relative;
+  transform: scale(2);
+  border-radius: 50%;
+  border: 1px solid var(--widget-header);
+  width: 30px;
+  height: 30px;
+  color: var(--widget-header);
+}
+
+.loader::after {
+  position: absolute;
+  width: 0px;
+  height: 10px;
+  display: block;
+  border-left: 1px solid var(--widget-header);
+  content: '';
+  left: 14px;
+  border-radius: 1px;
+  top: 4px;
+  animation-duration: 1s;
+}
+
+.loader::before {
+  position: absolute;
+  width: 0px;
+  height: 10px;
+  display: block;
+  border-left: 1px solid var(--widget-header);
+  content: '';
+  left: 14px;
+  border-radius: 1px;
+  top: 4px;
+  animation-duration: 40s;
+}
+
+.loader::before, .loader::after {
+  transform-origin: bottom;
+  animation-name: dial;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes dial {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

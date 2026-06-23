@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aditya Sawant | Desktop OS Portfolio</title>
+  <!-- Google Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <!-- Lucide Icons (CDN) for clean OS icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Desktop Environment Wrapper -->
+  <div id="desktop-env">
+    
+    <!-- Animated Gradient Wallpapers/Orbs (Premium Aesthetic) -->
+    <div class="wallpaper-glow glow-1"></div>
+    <div class="wallpaper-glow glow-2"></div>
+    <div class="wallpaper-glow glow-3"></div>
+
+    <!-- Top Menu Bar -->
+    <header id="menu-bar">
+      <div class="menu-left">
+        <span class="menu-item system-logo" id="system-menu-trigger">
+          <i data-lucide="terminal" style="width: 14px; height: 14px;"></i>
+          <strong>Aditya OS</strong>
+        </span>
+        <div class="dropdown-menu" id="system-dropdown">
+          <a href="#" class="dropdown-item" onclick="openWindow('about')">About Aditya OS</a>
+          <a href="#" class="dropdown-item" onclick="openWindow('terminal')">Launch Terminal</a>
+          <div class="dropdown-separator"></div>
+          <a href="#" class="dropdown-item" onclick="resetDesktopLayout()">Reset Window Positions</a>
+          <a href="#" class="dropdown-item" onclick="toggleScreenSaver()">Lock Screen</a>
+        </div>
+        <span class="menu-item active-app-name" id="active-app-display">Finder</span>
+        <span class="menu-item hidden-mobile">File</span>
+        <span class="menu-item hidden-mobile">Edit</span>
+        <span class="menu-item hidden-mobile">View</span>
+        <span class="menu-item hidden-mobile">Go</span>
+        <span class="menu-item hidden-mobile">Help</span>
+      </div>
+      <div class="menu-right">
+        <span class="menu-item" id="search-trigger-btn" title="Search (Ctrl + K)">
+          <i data-lucide="search" style="width: 14px; height: 14px;"></i>
+        </span>
+        <span class="menu-item hidden-mobile">
+          <i data-lucide="wifi" style="width: 14px; height: 14px; margin-right: 4px;"></i> Connected
+        </span>
+        <span class="menu-item hidden-mobile">
+          <i data-lucide="battery" style="width: 15px; height: 15px; margin-right: 4px;"></i> 100%
+        </span>
+        <span class="menu-item clock" id="clock-display">Thursday 9:16 PM</span>
+      </div>
+    </header>
+
+    <!-- Desktop Grid Canvas -->
+    <main id="desktop-canvas">
+      
+      <!-- Desktop Search Bar (Matches screen.png) -->
+      <div class="desktop-search-wrapper">
+        <div class="desktop-search-bar" onclick="openSearchFromDesktop()">
+          <i data-lucide="search" class="desktop-search-icon"></i>
+          <span class="desktop-search-placeholder">Search projects, skills, commands...</span>
+        </div>
+      </div>
+
+      <div class="desktop-main-layout">
+        <!-- Desktop Shortcuts Column -->
+        <div class="desktop-grid">
+          <div class="desktop-shortcut" data-window="about" tabindex="0">
+            <div class="shortcut-icon icon-blue">
+              <i data-lucide="user"></i>
+            </div>
+            <span class="shortcut-label">About Me.txt</span>
+          </div>
+          
+          <div class="desktop-shortcut" data-window="projects" tabindex="0">
+            <div class="shortcut-icon icon-purple">
+              <i data-lucide="folder-git-2"></i>
+            </div>
+            <span class="shortcut-label">My Projects</span>
+          </div>
+
+          <div class="desktop-shortcut" data-window="terminal" tabindex="0">
+            <div class="shortcut-icon icon-green">
+              <i data-lucide="terminal"></i>
+            </div>
+            <span class="shortcut-label">Terminal.app</span>
+          </div>
+
+          <div class="desktop-shortcut" data-window="contact" tabindex="0">
+            <div class="shortcut-icon icon-orange">
+              <i data-lucide="mail"></i>
+            </div>
+            <span class="shortcut-label">Contact.mail</span>
+          </div>
+
+          <!-- Resume PDF file shortcut (Matches screen.png) -->
+          <div class="desktop-shortcut" id="shortcut-resume" tabindex="0">
+            <div class="shortcut-icon icon-pdf">
+              <i data-lucide="file-text"></i>
+            </div>
+            <span class="shortcut-label">Resume.pdf</span>
+          </div>
+        </div>
+
+        <!-- Sidebar Widgets Panel (Matches screen.png right-side column) -->
+        <aside class="desktop-widgets">
+          
+          <!-- Analog Clock Widget -->
+          <div class="widget-card widget-clock-card">
+            <div class="analog-clock">
+              <div class="clock-face">
+                <div class="hand hour-hand"></div>
+                <div class="hand min-hand"></div>
+                <div class="hand sec-hand"></div>
+                <div class="clock-center"></div>
+              </div>
+            </div>
+            <div class="widget-clock-digital" id="widget-digital-time">20:07</div>
+            <div class="widget-clock-location">PUNE, IN</div>
+          </div>
+
+          <!-- Currently Building Widget -->
+          <div class="widget-card">
+            <div class="widget-header">
+              <span class="pulse-dot"></span>
+              <span class="widget-title">CURRENTLY BUILDING</span>
+            </div>
+            <div class="widget-body">
+              <div class="building-card">
+                <div class="building-icon">
+                  <i data-lucide="terminal" style="color: var(--project-cityscan);"></i>
+                </div>
+                <div class="building-info">
+                  <h4>DevOS v1.0</h4>
+                  <p>Desktop Workspace Portfolio</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Techstack Widget -->
+          <div class="widget-card">
+            <div class="widget-header">
+              <i data-lucide="cpu" class="widget-header-icon" style="color: var(--project-dataviz);"></i>
+              <span class="widget-title">PRIMARY TECHSTACK</span>
+            </div>
+            <div class="widget-body">
+              <div class="widget-tags">
+                <span class="widget-tag">React</span>
+                <span class="widget-tag">Next.js</span>
+                <span class="widget-tag">Node.js</span>
+                <span class="widget-tag">Go</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Latest Achievement / Milestone Widget -->
+          <div class="widget-card">
+            <div class="widget-header">
+              <i data-lucide="star" class="widget-header-icon" style="color: var(--project-shivner);"></i>
+              <span class="widget-title">LATEST ACHIEVEMENT</span>
+            </div>
+            <div class="widget-body">
+              <div class="milestone-content">
+                <h4>GDG Web Dev Core Member</h4>
+                <p>Leading technical workshops and architectural planning.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Get in Touch Widget Link -->
+          <div class="widget-card widget-action-card" onclick="openWindow('contact')">
+            <div class="action-card-content">
+              <div class="action-icon">
+                <i data-lucide="mail"></i>
+              </div>
+              <div class="action-text">
+                <span class="action-label">GET IN TOUCH</span>
+                <span class="action-sub">hello@aditya.dev</span>
+              </div>
+              <div class="action-arrow">
+                <i data-lucide="arrow-right"></i>
+              </div>
+            </div>
+          </div>
+
+        </aside>
+      </div>
+
+      <!-- Sticky Notes Container -->
+      <div id="sticky-notes-container"></div>
+
+      <!-- Window Instances will sit inside this desktop canvas -->
+    </main>
+
+    <!-- macOS-Style Bottom Dock -->
+    <nav id="dock-container">
+      <div class="dock-glass">
+        <div class="dock-item" data-window="about" data-tooltip="About Me">
+          <i data-lucide="user"></i>
+          <span class="dock-dot"></span>
+        </div>
+        <div class="dock-item" data-window="projects" data-tooltip="Projects">
+          <i data-lucide="folder-git-2"></i>
+          <span class="dock-dot"></span>
+        </div>
+        <div class="dock-item" data-window="terminal" data-tooltip="Terminal">
+          <i data-lucide="terminal"></i>
+          <span class="dock-dot"></span>
+        </div>
+        <div class="dock-item" data-window="contact" data-tooltip="Contact Me">
+          <i data-lucide="mail"></i>
+          <span class="dock-dot"></span>
+        </div>
+        <div class="dock-separator"></div>
+        <div class="dock-item" id="dock-add-note" data-tooltip="New Sticky Note">
+          <i data-lucide="sticky-note"></i>
+        </div>
+        <div class="dock-item" id="dock-trash" data-tooltip="Trash">
+          <i data-lucide="trash-2"></i>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Spotlight Search Overlay (Ctrl+K Modal) -->
+    <div id="search-modal" class="search-overlay">
+      <div class="search-container glassmorphism">
+        <div class="search-input-wrapper">
+          <i data-lucide="search" class="search-input-icon"></i>
+          <input type="text" id="search-input" placeholder="Search files, projects, commands..." autocomplete="off">
+          <span class="search-shortcut-hint">ESC to close</span>
+        </div>
+        <div class="search-results" id="search-results-list">
+          <!-- Results populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Lockscreen / Screensaver Overlay -->
+    <div id="lockscreen" class="lockscreen-overlay hidden">
+      <div class="lockscreen-content">
+        <div class="lockscreen-avatar">
+          <i data-lucide="user" style="width: 48px; height: 48px; color: var(--on-surface-variant);"></i>
+        </div>
+        <h2 class="lockscreen-user">Aditya Sawant</h2>
+        <p class="lockscreen-status">Locked</p>
+        <button class="lockscreen-unlock-btn" onclick="toggleScreenSaver()">Unlock Desktop</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- HTML Templates for Windows -->
+  <!-- template: About Me -->
+  <template id="window-about-template">
+    <div class="window-inner about-window">
+      <div class="profile-card">
+        <div class="profile-header">
+          <div class="profile-avatar">AS</div>
+          <div class="profile-meta">
+            <h2>Aditya Sawant</h2>
+            <p class="role">Full-Stack Engineer & Designer</p>
+            <p class="location"><i data-lucide="map-pin" class="inline-icon"></i> Pune, India</p>
+          </div>
+        </div>
+        <hr class="window-hr">
+        <div class="profile-body">
+          <p class="bio">
+            I build performant, highly aesthetic digital experiences using modern web technologies. Focused on crafting clean, accessible code with premium visual feel.
+          </p>
+          <h3>Technical Toolkit</h3>
+          <div class="tech-tags">
+            <span class="tech-tag">HTML5 / CSS3</span>
+            <span class="tech-tag">JavaScript (ES6+)</span>
+            <span class="tech-tag">React / Next.js</span>
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Git</span>
+          </div>
+          <div class="profile-actions">
+            <a href="#" class="btn btn-primary" onclick="openWindow('contact')">
+              <i data-lucide="send" class="btn-icon"></i> Get in Touch
+            </a>
+            <a href="#" class="btn btn-ghost" id="cv-download-btn">
+              <i data-lucide="download" class="btn-icon"></i> Download Resume
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- template: Projects Folder -->
+  <template id="window-projects-template">
+    <div class="window-inner projects-folder">
+      <div class="explorer-sidebar">
+        <span class="sidebar-heading">Locations</span>
+        <div class="sidebar-item active">
+          <i data-lucide="folder" class="sidebar-icon"></i> Desktop
+        </div>
+        <div class="sidebar-item">
+          <i data-lucide="github" class="sidebar-icon"></i> Repositories
+        </div>
+        <div class="sidebar-item">
+          <i data-lucide="terminal" class="sidebar-icon"></i> Scripts
+        </div>
+      </div>
+      <div class="explorer-content">
+        <div class="explorer-toolbar">
+          <span class="explorer-path"><i data-lucide="chevron-right" class="inline-icon"></i> Projects / Desktop</span>
+        </div>
+        <div class="projects-grid">
+          <!-- CityScan -->
+          <div class="project-card-item" data-project="cityscan">
+            <div class="project-folder-graphic color-cityscan">
+              <i data-lucide="folder"></i>
+            </div>
+            <div class="project-info">
+              <span class="project-name">CityScan.app</span>
+              <span class="project-desc">Smart City Monitor</span>
+            </div>
+          </div>
+          <!-- DataViz -->
+          <div class="project-card-item" data-project="dataviz">
+            <div class="project-folder-graphic color-dataviz">
+              <i data-lucide="folder"></i>
+            </div>
+            <div class="project-info">
+              <span class="project-name">DataViz.3D</span>
+              <span class="project-desc">Interactive WebGL</span>
+            </div>
+          </div>
+          <!-- BaatCheet -->
+          <div class="project-card-item" data-project="baatcheet">
+            <div class="project-folder-graphic color-baatcheet">
+              <i data-lucide="folder"></i>
+            </div>
+            <div class="project-info">
+              <span class="project-name">BaatCheet.chat</span>
+              <span class="project-desc">Real-time Messaging</span>
+            </div>
+          </div>
+          <!-- Shivner -->
+          <div class="project-card-item" data-project="shivner">
+            <div class="project-folder-graphic color-shivner">
+              <i data-lucide="folder"></i>
+            </div>
+            <div class="project-info">
+              <span class="project-name">Shivner.api</span>
+              <span class="project-desc">Logistics Routing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <!-- template: Contact Form -->
+  <template id="window-contact-template">
+    <div class="window-inner contact-inner">
+      <div class="contact-header-info">
+        <h2>Send a Message</h2>
+        <p>Feel free to reach out for collaborations, inquiries, or just to say hello!</p>
+      </div>
+      <form class="contact-form" id="contact-form-el" onsubmit="handleContactSubmit(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contact-name">Name</label>
+            <input type="text" id="contact-name" name="name" placeholder="John Doe" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email</label>
+            <input type="email" id="contact-email" name="email" placeholder="john@example.com" required autocomplete="email">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="contact-message">Message</label>
+          <textarea id="contact-message" name="message" rows="5" placeholder="Hey Aditya, I'd love to chat about..." required></textarea>
+        </div>
+        <div class="form-submit-container">
+          <button type="submit" class="btn btn-primary btn-block">
+            <i data-lucide="send" class="btn-icon"></i> Send Message
+          </button>
+        </div>
+      </form>
+      <div class="contact-success hidden" id="contact-success-msg">
+        <i data-lucide="check-circle" style="width: 48px; height: 48px; color: var(--project-cityscan);"></i>
+        <h3>Message Sent!</h3>
+        <p>Thank you. Aditya will get back to you shortly.</p>
+        <button class="btn btn-ghost" onclick="resetContactForm()">Send another message</button>
+      </div>
+    </div>
+  </template>
+
+  <!-- template: Terminal -->
+  <template id="window-terminal-template">
+    <div class="window-inner terminal-inner">
+      <div class="terminal-body" id="terminal-body-content">
+        <div class="terminal-welcome">
+          Welcome to Aditya OS Terminal v1.0.0 (Type 'help' for available commands)
+        </div>
+        <div class="terminal-logs" id="terminal-logs-container">
+          <!-- Terminal command outputs will be printed here -->
+        </div>
+        <div class="terminal-input-line">
+          <span class="terminal-prompt">aditya@portfolio:~#</span>
+          <input type="text" class="terminal-input" id="terminal-input-el" autofocus autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+      <!-- Blinking Scanline texture overlay -->
+      <div class="terminal-scanlines"></div>
+    </div>
+  </template>
+
+  <!-- Script Modules -->
+  <script src="src/projects.js" type="module"></script>
+  <script src="src/window-manager.js" type="module"></script>
+  <script src="src/desktop.js" type="module"></script>
+  <script src="src/dock.js" type="module"></script>
+  <script src="src/search.js" type="module"></script>
+  <script src="src/terminal.js" type="module"></script>
+  <script src="src/main.js" type="module"></script>
+</body>
+</html>
