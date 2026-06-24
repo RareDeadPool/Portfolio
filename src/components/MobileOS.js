@@ -44,27 +44,8 @@ const MOBILE_GRAVITY_CARDS = [
   { id: 'hackathons', title: 'GDG Core', label: 'Workshops, hackathons', icon: Trophy, accent: '#ec4899' }
 ];
 
-export default## 9. Mobile OS Viewport Switcher & Layout Integration
-
-### Changes Made
-- Modified [Desktop.js](file:///c:/Users/Aditya%20Sawant/Desktop/portfolio/src/components/Desktop.js):
-  - Imported [MobileOS.js](file:///c:/Users/Aditya%20Sawant/Desktop/portfolio/src/components/MobileOS.js) to serve the premium iOS-inspired Portfolio Phone OS.
-  - Implemented client-side layout switching using `isMobile` (checking for screen width `< 768px`) and a resize hook listener.
-  - Resolved potential Next.js server-side rendering (SSR) hydration mismatches by tracking a client-side `mounted` state and rendering a clean dark background placeholder until mount.
-  - Connected the mobile OS interface to the identical backend logic and triggers by passing down the `downloadResumePDF`, `handleContactSubmit`, `contactSuccess`, and `setContactSuccess` states/handlers.
-
----
-
-## 10. Verification & Build Results
-
-- **Build Check**: Executed `npm run build` locally. The entire application compiles successfully with the new layout integration:
-  ```bash
-  ✓ Compiled successfully in 5.5s
-  ✓ Generating static pages using 5 workers (4/4) in 1645ms
-  Finalizing page optimization ...
-  ```
-- **Error Validation**: Confirmed 0 compiler, static rendering, hydration, or dependency warnings. Both macOS desktop and iOS mobile OS views resolve client-side bindings cleanly.
-evements'
+export default function MobileOS({ downloadResumePDF, handleContactSubmit, contactSuccess, setContactSuccess }) {
+  const [activeApp, setActiveApp] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
   const [isShareToast, setIsShareToast] = useState(false);
 

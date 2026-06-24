@@ -106,9 +106,12 @@ export default function LiquidFluid(props) {
         antialias: false,
         preserveDrawingBuffer: false
       };
-      let gl = canvas.getContext("webgl2", params);
-      const isWebGL2 = !!gl;
-      if (!isWebGL2) gl = canvas.getContext("webgl", params) || canvas.getContext("experimental-webgl", params);
+      let gl = canvas.getContext("webgl", params) || canvas.getContext("experimental-webgl", params);
+      let isWebGL2 = false;
+      if (!gl) {
+        gl = canvas.getContext("webgl2", params);
+        isWebGL2 = !!gl;
+      }
       if (!gl) return null;
 
       let halfFloat, supportLinearFiltering;
@@ -173,8 +176,11 @@ export default function LiquidFluid(props) {
       }
 
       if (!formatRGBA) {
-        console.warn("LiquidFluid: no supported render texture format.");
-        return null;
+        console.warn("LiquidFluid: no supported render texture format. Falling back to default UNSIGNED_BYTE RGBA.");
+        formatRGBA = { internalFormat: gl.RGBA, format: gl.RGBA };
+        formatRG = formatRGBA;
+        formatR = formatRGBA;
+        texType = gl.UNSIGNED_BYTE;
       }
       if (!formatRG) formatRG = formatRGBA;
       if (!formatR) formatR = formatRGBA;
@@ -1062,7 +1068,7 @@ export default function LiquidFluid(props) {
       clearTimeout(inactivityTimer);
       clearInterval(autoplayTimer);
       resizeObserver.disconnect();
-      gl.getExtension("WEBGL_lose_context")?.loseContext();
+      // gl.getExtension("WEBGL_lose_context")?.loseContext();
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mouseup", onMouseUp);
